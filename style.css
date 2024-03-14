@@ -1,0 +1,312 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #181818;
+  height: 100vh;
+  width: 100vw;
+}
+
+#menu-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  cursor: pointer;
+  margin: auto;
+  color: deepskyblue;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  line-height: 150px;
+  text-align: center;
+  font-size: 2.75em;
+  font-weight: bold;
+  transition: 0.24s 0.2s;
+}
+#menu-wrapper:hover {
+  background: rgba(255, 255, 255, 0.75);
+  /* Where all the MAGIC happens: */
+}
+#menu-wrapper:hover .menu {
+  transition: transform 0.4s 0.08s, z-index 0s 0.5s;
+  transform: scale(1) translate(0, -50%);
+  z-index: 5;
+}
+#menu-wrapper:hover .menu-item,
+#menu-wrapper:hover .unit {
+  transition: all 0.6s;
+}
+#menu-wrapper:hover .menu-item:nth-child(1) {
+  transition-delay: 0.02s;
+  transform: rotate(57deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(1)::after {
+  transition-delay: 0.04s;
+  transform: rotate(663deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(2) {
+  transition-delay: 0.04s;
+  transform: rotate(69deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(2)::after {
+  transition-delay: 0.08s;
+  transform: rotate(651deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(3) {
+  transition-delay: 0.06s;
+  transform: rotate(81deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(3)::after {
+  transition-delay: 0.12s;
+  transform: rotate(639deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(4) {
+  transition-delay: 0.08s;
+  transform: rotate(93deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(4)::after {
+  transition-delay: 0.16s;
+  transform: rotate(627deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(5) {
+  transition-delay: 0.1s;
+  transform: rotate(105deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(5)::after {
+  transition-delay: 0.2s;
+  transform: rotate(615deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(6) {
+  transition-delay: 0.12s;
+  transform: rotate(117deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(6)::after {
+  transition-delay: 0.24s;
+  transform: rotate(603deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(7) {
+  transition-delay: 0.14s;
+  transform: rotate(129deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(7)::after {
+  transition-delay: 0.28s;
+  transform: rotate(591deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(8) {
+  transition-delay: 0.16s;
+  transform: rotate(141deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(8)::after {
+  transition-delay: 0.32s;
+  transform: rotate(579deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(9) {
+  transition-delay: 0.18s;
+  transform: rotate(153deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(9)::after {
+  transition-delay: 0.36s;
+  transform: rotate(567deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(10) {
+  transition-delay: 0.2s;
+  transform: rotate(165deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(10)::after {
+  transition-delay: 0.4s;
+  transform: rotate(555deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(11) {
+  transition-delay: 0.22s;
+  transform: rotate(177deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(11)::after {
+  transition-delay: 0.44s;
+  transform: rotate(543deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(12) {
+  transition-delay: 0.24s;
+  transform: rotate(189deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(12)::after {
+  transition-delay: 0.48s;
+  transform: rotate(531deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(13) {
+  transition-delay: 0.26s;
+  transform: rotate(201deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(13)::after {
+  transition-delay: 0.52s;
+  transform: rotate(519deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(14) {
+  transition-delay: 0.28s;
+  transform: rotate(213deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(14)::after {
+  transition-delay: 0.56s;
+  transform: rotate(507deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(15) {
+  transition-delay: 0.3s;
+  transform: rotate(225deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(15)::after {
+  transition-delay: 0.6s;
+  transform: rotate(495deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(16) {
+  transition-delay: 0.32s;
+  transform: rotate(237deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(16)::after {
+  transition-delay: 0.64s;
+  transform: rotate(483deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(17) {
+  transition-delay: 0.34s;
+  transform: rotate(249deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(17)::after {
+  transition-delay: 0.68s;
+  transform: rotate(471deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(18) {
+  transition-delay: 0.36s;
+  transform: rotate(261deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(18)::after {
+  transition-delay: 0.72s;
+  transform: rotate(459deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(19) {
+  transition-delay: 0.38s;
+  transform: rotate(273deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(19)::after {
+  transition-delay: 0.76s;
+  transform: rotate(447deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(20) {
+  transition-delay: 0.4s;
+  transform: rotate(285deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(20)::after {
+  transition-delay: 0.8s;
+  transform: rotate(435deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(21) {
+  transition-delay: 0.42s;
+  transform: rotate(297deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(21)::after {
+  transition-delay: 0.84s;
+  transform: rotate(423deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(22) {
+  transition-delay: 0.44s;
+  transform: rotate(309deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(22)::after {
+  transition-delay: 0.88s;
+  transform: rotate(411deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(23) {
+  transition-delay: 0.46s;
+  transform: rotate(321deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(23)::after {
+  transition-delay: 0.92s;
+  transform: rotate(399deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(24) {
+  transition-delay: 0.48s;
+  transform: rotate(333deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(24)::after {
+  transition-delay: 0.96s;
+  transform: rotate(387deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(25) {
+  transition-delay: 0.5s;
+  transform: rotate(345deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(25)::after {
+  transition-delay: 1s;
+  transform: rotate(375deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(26) {
+  transition-delay: 0.52s;
+  transform: rotate(357deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(26)::after {
+  transition-delay: 1.04s;
+  transform: rotate(363deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(27) {
+  transition-delay: 0.54s;
+  transform: rotate(369deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(27)::after {
+  transition-delay: 1.08s;
+  transform: rotate(351deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(28) {
+  transition-delay: 0.56s;
+  transform: rotate(381deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(28)::after {
+  transition-delay: 1.12s;
+  transform: rotate(339deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(29) {
+  transition-delay: 0.58s;
+  transform: rotate(393deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(29)::after {
+  transition-delay: 1.16s;
+  transform: rotate(327deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(30) {
+  transition-delay: 0.6s;
+  transform: rotate(405deg);
+}
+#menu-wrapper:hover .menu-item:nth-child(30)::after {
+  transition-delay: 1.2s;
+  transform: rotate(315deg);
+}
+#menu-wrapper .menu {
+  position: relative;
+  top: -75px;
+  width: 100%;
+  height: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  border-radius: 50%;
+  transform: scale(1) translate(0, -50%);
+  transition: transform 1.4s 0.07s;
+  z-index: -5;
+}
+#menu-wrapper .menu-item {
+  position: absolute;
+  top: calc(50% - 250px);
+  left: calc(50% - 250px);
+  transform-origin: 250px 250px;
+  transition: all 0.5s 0.1s;
+  background-color: white;
+  color: dodgerblue;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+}
+#menu-wrapper .menu-item::after {
+  content: attr(data-text);
+  transition: 100ms;
+  font-size: 65%;
+  display: block;
+}/*# sourceMappingURL=style.css.map */
