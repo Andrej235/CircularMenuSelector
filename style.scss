@@ -1,0 +1,108 @@
+$li: 30;
+$icon-size: 150px;
+$menu-size: calc(300px / 2);
+$unit-size: 45px;
+$menu-position: calc((($menu-size * 2) - $icon-size) / -2);
+$offset: 250px;
+$deg: calc(360deg / $li);
+$selectedId: 30;
+$menuRotation: calc($deg * (15 - $selectedId));
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #181818;
+
+    height: 100vh;
+    width: 100vw;
+}
+
+#menu-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: white;
+    cursor: pointer;
+    margin: auto;
+    color: deepskyblue;
+    border-radius: 50%;
+    height: $icon-size;
+    width: $icon-size;
+    line-height: $icon-size;
+    text-align: center;
+    font-size: 2.75em;
+    font-weight: bold;
+    transition: 0.24s 0.2s;
+
+    &:hover {
+        background: rgba(white, 0.75);
+
+        .menu {
+            transition: transform 0.4s 0.08s, z-index 0s 0.5s;
+            transform: scale(1) translate(0, -50%) rotate($menuRotation);
+            z-index: 5;
+
+            /* Where all the MAGIC happens: */
+            @for $m from 1 through $li {
+                .menu-item:nth-child(#{$m}) {
+                    transform: rotate(calc(45deg + $deg * $m));
+
+                    @if($m ==$selectedId) {
+                        width: calc($unit-size * 2);
+                        height: calc($unit-size * 2);
+                        line-height: calc($unit-size * 2);
+                    }
+
+                    @else {
+                        width: $unit-size;
+                        height: $unit-size;
+                        line-height: $unit-size;
+                    }
+
+                    &::after {
+                        transform: rotate(-$deg * $m + 720 - 45 - $menuRotation);
+                    }
+                }
+            }
+        }
+    }
+
+    .menu {
+        position: relative;
+        top: $menu-position;
+        width: 100%;
+        height: 100%;
+        list-style-type: none;
+
+        padding: 0;
+        margin: 0;
+
+        cursor: default;
+        border-radius: 50%;
+
+        transform: scale(0) translate(0, -50%) rotate($menuRotation);
+        transition: transform 1.4s 0.07s;
+        z-index: -5;
+    }
+
+    .menu-item {
+        position: absolute;
+        top: calc(50% - $offset);
+        left: calc(50% - $offset);
+        transform-origin: $offset $offset;
+
+        transition: 500ms;
+        background-color: white;
+        color: dodgerblue;
+        border-radius: 50%;
+
+        &::after {
+            content: attr(data-text);
+            transition: 100ms;
+            font-size: 65%;
+            display: block;
+        }
+    }
+}
