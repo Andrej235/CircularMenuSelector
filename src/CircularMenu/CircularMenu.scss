@@ -1,0 +1,68 @@
+$li: 30;
+$menuItemSize: 45px;
+$offset: 250px;
+$rotationPerItem: calc(360deg / $li);
+
+.circular-menu-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+
+    width: 100svw;
+    height: 100svh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    .menu {
+        padding: 0;
+        margin: 0;
+    
+        list-style-type: none;
+        border-radius: 50%;
+        cursor: default;
+    
+        font-size: 2rem;
+        text-align: center;
+    
+        @for $m from 1 through $li {
+            .menu-item:nth-child(#{$m}) {
+                transform: rotate(calc(45deg + $rotationPerItem * $m));
+    
+                &::after {
+                    transform: rotate(var(--text-rotation));
+                }
+            }
+        }
+    
+        .menu-item {
+            position: absolute;
+            top: calc(50% - $offset);
+            left: calc(50% - $offset);
+            transform-origin: $offset $offset;
+    
+            width: $menuItemSize;
+            height: $menuItemSize;
+            line-height: $menuItemSize;
+
+            background-color: white;
+            color: dodgerblue;
+            border-radius: 50%;
+    
+            &::after {
+                content: attr(data-text);
+                font-size: 65%;
+                display: block;
+            }
+
+            &.selected {
+                background-color: dodgerblue;
+                color: white;
+            }
+        }
+    }
+}
