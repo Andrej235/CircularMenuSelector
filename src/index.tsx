@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import App from './App';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Menu from './Menu/Menu';
+import ItemDisplay from './ItemDisplay/ItemDisplay';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Menu />
+  },
+  {
+    path: "/item/:itemId",
+    element: <ItemDisplay />,
+    loader: ({ params }) => ({
+      hi: 'This is id starting from 1: ' + (parseInt(params.itemId ?? '0') + 1)
+    })
+  }
+]);
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
