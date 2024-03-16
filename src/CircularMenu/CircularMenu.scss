@@ -45,11 +45,11 @@ $rotationPerItem: calc(360deg / $li);
             top: calc(50% - $offset);
             left: calc(50% - $offset);
             transform-origin: $offset $offset;
-            
+
             width: $menuItemSize;
             height: $menuItemSize;
             line-height: $menuItemSize;
-            
+
             background-color: white;
             color: dodgerblue;
             border-radius: 50%;
@@ -65,6 +65,17 @@ $rotationPerItem: calc(360deg / $li);
             &.selected {
                 background-color: dodgerblue;
                 color: white;
+                width: calc(1.4 * $menuItemSize);
+                height: calc(1.4 * $menuItemSize);
+                line-height: (1.4 * $menuItemSize);
+            }
+
+            &:not(.selected):hover{
+                background-color: dodgerblue;
+                color: white;
+                width: calc(1.2 * $menuItemSize);
+                height: calc(1.2 * $menuItemSize);
+                line-height: (1.2 * $menuItemSize);
             }
         }
     }
