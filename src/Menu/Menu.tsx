@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { Observer } from "gsap/Observer";
 import CircularMenu from "./CircularMenu/CircularMenu";
 import Cube from "./Cube/Cube";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Menu() {
     gsap.registerPlugin(Observer);
@@ -13,6 +13,7 @@ export default function Menu() {
 
     const [selectedItemId, setSelectedItemId] = useState(0);
     const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+    const [menuScale, setMenuScale] = useState<number>(1.0)
 
     const navigate = useNavigate();
 
@@ -42,12 +43,22 @@ export default function Menu() {
     });
 
     Observer.create({
+        type: "touch",
+        wheelSpeed: 0,
+        tolerance: 10,
+        dragMinimum: 75,
+        preventDefault: true,
+        lockAxis: true,
+        onUp: () => setMenuScale(0.5),
+        onDown: () => setMenuScale(1.0)
+    });
+
+    Observer.create({
         type: "touch,pointer",
         wheelSpeed: 0,
         tolerance: 10,
         dragMinimum: 25,
         preventDefault: true,
-        lockAxis: true,
         onRight: incrementSelectedId,
         onLeft: decrementSelectedId,
     });
@@ -58,9 +69,9 @@ export default function Menu() {
 
     return (
         <>
-            <CircularMenu onItemSelected={setSelectedItemId} selectedItemId={selectedItemId} items={items} />
+            <CircularMenu onItemSelected={setSelectedItemId} selectedItemId={selectedItemId} items={items} scale={menuScale} />
 
-            <Canvas style={{ width: "33vw", height: "33vh", zIndex: 10 }} shadows ref={canvasRef}>
+            <Canvas style={{ width: "33svw", height: "33svh", zIndex: 10 }} shadows ref={canvasRef}>
                 <Cube selectedItemId={selectedItemId} onClick={onCubeClick} />
             </Canvas>
         </>

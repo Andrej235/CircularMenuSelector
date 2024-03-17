@@ -1,9 +1,10 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import './CircularMenu.scss';
 
 type CircularMenuProps = {
     selectedItemId: number,
     items: string[] | number[],
+    scale: number,
     onItemSelected: (selectedItemId: number) => void
 }
 
@@ -18,11 +19,14 @@ type CircularMenuProps = {
  * @param {(selectedItemId: number) => void} props.onItemSelected - The callback function when an item is selected.
  * @returns {JSX.Element} The rendered circular menu.
  */
-export default function CircularMenu({ selectedItemId, items, onItemSelected }: CircularMenuProps): JSX.Element {
+export default function CircularMenu({ selectedItemId, items, scale, onItemSelected }: CircularMenuProps): JSX.Element {
     // Calculate the number of degrees to rotate each menu item. This value is determined by dividing 360 degrees by the total number of items.
     const rotationPerItem: number = 360 / 30;
     // Create a mutable reference to store the previous rotation value. This is used to compare with the current rotation and adjust the menu rotation if necessary.
     const previousRotation: React.MutableRefObject<number> = useRef<number>(0);
+
+    const menuWrapperRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLUListElement>(null);
 
     // Calculate the rotation value for the menu. This is done by multiplying the selected item ID by the rotation per item, and then adjusting the value if necessary to avoid sudden jumps in the menu rotation.
     const rotation: number = useMemo(() => {
@@ -39,10 +43,11 @@ export default function CircularMenu({ selectedItemId, items, onItemSelected }: 
 
     // Render the circular menu.
     return (
-        <div className="circular-menu-wrapper">
+        <div className="circular-menu-wrapper" ref={menuWrapperRef}>
             {/* The menu itself */}
-            <ul className="menu" style={{
-                transform: `rotate(${rotation}deg)` // Rotate the menu based on the calculated rotation
+            <ul className="menu" ref={menuRef} style={{
+                transform: `rotate(${rotation}deg)`, // Rotate the menu based on the calculated rotation
+                scale: `${scale}`
             }}>
                 {renderElement()} {/* Render the menu elements */}
             </ul>

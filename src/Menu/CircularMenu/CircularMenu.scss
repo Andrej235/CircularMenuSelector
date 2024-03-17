@@ -3,6 +3,10 @@ $menuItemSize: 45px;
 $offset: 250px;
 $rotationPerItem: calc(360deg / $li);
 
+*{
+    touch-action: none;
+}
+
 .circular-menu-wrapper {
     position: absolute;
     top: 50%;
