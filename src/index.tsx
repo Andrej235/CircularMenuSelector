@@ -4,17 +4,20 @@ import './index.scss';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Menu from './Menu/Menu';
 import ItemDisplay from './ItemDisplay/ItemDisplay';
+import Error from './Error/Error';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Menu />
+    element: <Menu />,
+    errorElement: <Error />
   },
   {
     path: "/item/:itemId",
     element: <ItemDisplay />,
     loader: ({ params }) => ({
-      hi: 'This is id starting from 1: ' + (parseInt(params.itemId ?? '0') + 1)
+      //@ts-expect-error
+      hi: 'This is id starting from 1: ' + (parseInt(params.itemId) + 1)
     })
   }
 ]);
