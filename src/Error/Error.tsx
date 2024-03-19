@@ -10,7 +10,7 @@ export default function Error() {
             <h2>Well this is akward...</h2>
             <h3>Something went wrong, you <span className='emphesized danger'>really</span> should <span className='emphesized danger'>not</span> be here</h3>
 
-            <h3>Click <span className='emphesized safe' onClick={() => navigate('..')}>here</span> to go back to safety</h3>
+            <h3>Click <span className='emphesized safe' onClick={() => navigate('/')}>here</span> to go back to safety</h3>
         </div>
     )
 }

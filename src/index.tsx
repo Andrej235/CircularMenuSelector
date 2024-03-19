@@ -1,10 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ActionFunctionArgs, LoaderFunctionArgs, ParamParseKey, Params, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Menu from './Menu/Menu';
 import ItemDisplay from './ItemDisplay/ItemDisplay';
 import Error from './Error/Error';
+
+const pathName = {
+  item: '/item/:itemId'
+} as const;
+
+interface Args extends ActionFunctionArgs {
+  params: Params<ParamParseKey<typeof pathName.item>>;
+}
 
 const router = createBrowserRouter([
   {
@@ -15,10 +23,11 @@ const router = createBrowserRouter([
   {
     path: "/item/:itemId",
     element: <ItemDisplay />,
-    loader: ({ params }) => ({
-      //@ts-expect-error
-      hi: 'This is id starting from 1: ' + (parseInt(params.itemId) + 1)
-    })
+    loader: ({ params }: Args) => {
+      return {
+        hi: 'This is id starting from 1: ' + (parseInt(params.itemId ?? '0') + 1)
+      };
+    }
   }
 ]);
 
