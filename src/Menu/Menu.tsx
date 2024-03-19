@@ -11,11 +11,18 @@ export default function Menu() {
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
-    const [selectedItemId, setSelectedItemId] = useState(0);
-    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
     const [menuScale, setMenuScale] = useState<number>(1.0)
+    const [selectedItemId, setSelectedItemId] = useState<number>(0);
+    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
 
+    const [isWaitingForNavigation, setIsWaitingForNavigation] = useState<boolean>(false)
     const navigate = useNavigate();
+
+    if (isWaitingForNavigation)
+        return (
+            //Put the weird loading thing I made here (shader)
+            <div>Loading</div>
+        );
 
     const incrementSelectedId = () => {
         let newSelectedItemId = selectedItemId + 1;
@@ -64,6 +71,7 @@ export default function Menu() {
     });
 
     const onCubeClick = () => {
+        setIsWaitingForNavigation(true);
         navigate(`/item/${selectedItemId}`);
     };
 
