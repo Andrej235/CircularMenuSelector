@@ -12,12 +12,14 @@ export interface ItemLoaderResult {
     imageBase64: string
 }
 
-export async function itemLoader({ params }: Args): Promise<ItemLoaderResult> {
+export async function itemLoader({ params }: Args, onFinishLoading?: () => void): Promise<ItemLoaderResult> {
 
     const request = fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080');
     const response = await request;
     const blob = await response.blob();
     const imageBase64 = await blobToBase64(blob);
+
+    onFinishLoading?.();
 
     return {
         imageBase64: imageBase64

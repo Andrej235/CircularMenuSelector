@@ -6,7 +6,12 @@ import CircularMenu from "./CircularMenu/CircularMenu";
 import Cube from "./Cube/Cube";
 import { useNavigate } from "react-router-dom";
 
-export default function Menu() {
+type MenuProps = {
+    onStartLoadingItem: () => void,
+    onFinishLoadingItem: () => void
+}
+
+export default function Menu({ onStartLoadingItem, onFinishLoadingItem }: MenuProps) {
     gsap.registerPlugin(Observer);
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -21,7 +26,8 @@ export default function Menu() {
     if (isWaitingForNavigation)
         return (
             //Put the weird loading thing I made here (shader)
-            <div>Loading</div>
+            // <div>Loading</div>
+            <></>
         );
 
     const incrementSelectedId = () => {
@@ -71,6 +77,7 @@ export default function Menu() {
     });
 
     const onCubeClick = () => {
+        onStartLoadingItem();
         setIsWaitingForNavigation(true);
         navigate(`/item/${selectedItemId}`);
     };
