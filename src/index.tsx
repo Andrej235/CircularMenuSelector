@@ -5,13 +5,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Menu from './Menu/Menu';
 import ItemDisplay from './ItemDisplay/ItemDisplay';
 import Error from './Error/Error';
-import { Args, itemLoader } from './ItemDisplay/ItemLoader';
+import { itemLoader } from './ItemDisplay/ItemLoader';
 import LoadingScreen from './LoadingScreen/LoadingScreen';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <App />
+  // </React.StrictMode>
 );
 
 export default function App() {
@@ -21,13 +21,13 @@ export default function App() {
       path: "/",
       element:
         <Menu
-          onStartLoadingItem={() => {
-            setIsLoading(true);
-            console.log('loading...', isLoading);
-          }}
-          onFinishLoadingItem={() => {
+          onUnmount={() => {
+            console.log('unmounting menu');
             setIsLoading(false);
-            console.log('loaded', isLoading);
+          }}
+          onNavigate={() => {
+            console.log('navigating from menu');
+            // setIsLoading(true);
           }}
         />,
       errorElement: <Error />
@@ -35,24 +35,22 @@ export default function App() {
     {
       path: "/item/:itemId",
       element: <ItemDisplay />,
-      loader: (x: Args) => itemLoader(x, () => setIsLoading(false))
+      loader: (x) => {
+        return itemLoader(x, () => console.log('fuck u')
+        );
+      } //Item loader has to call setIsLoading(true)
     },
     {
       path: "/test/loadingscreen",
-      element: <LoadingScreen />
+      element: <LoadingScreen hidden={false} />
     }
   ]);
 
-  //Add a way to force the user to wait for the loading animation to complete
-  function renderLoadingScreen() {
-    return isLoading ? <LoadingScreen /> : null;
-  }
-
   return (
-    <>
+    <div>
       <RouterProvider router={router} />
 
-      {renderLoadingScreen()}
-    </>
+      <LoadingScreen hidden={!isLoading} />
+    </div>
   );
 }
