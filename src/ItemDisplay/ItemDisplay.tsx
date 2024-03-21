@@ -17,16 +17,15 @@ export default function ItemDisplay() {
     })(node), [contextSafe]);
 
     return (
-        <Suspense fallback={
-            <p>Loading image...</p>
-        }>
-            <Await resolve={(data as ItemLoaderResult).imageBase64} errorElement={<p>Error loading image</p>}>
-                {(imageBase64) => {
-                    //TODO: Use shaders to turn these images into grayscale and apply some more cool effects to them
-                    return <img className="picsum" src={imageBase64} alt="Taken from Picsum" ref={playAnimation} style={{ opacity: 0 }} />
-                }}
-            </Await>
-        </Suspense >
-
+        <div id="item-display">
+            <Suspense fallback={null}>
+                <Await resolve={(data as ItemLoaderResult).imageBase64} errorElement={<p>Error loading image</p>}>
+                    {(imageBase64) => {
+                        //TODO: Use shaders to turn these images into grayscale and apply some more cool effects to them
+                        return <img className="picsum" src={imageBase64} alt="Taken from Picsum" ref={playAnimation} style={{ opacity: 0 }} />
+                    }}
+                </Await>
+            </Suspense>
+        </div>
     )
 }

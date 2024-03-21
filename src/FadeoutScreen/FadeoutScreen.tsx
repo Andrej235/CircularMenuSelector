@@ -35,7 +35,7 @@ function FadeoutScreenCanvasElements({ onAnimationCompleted }: FadeOutScreenProp
             },
             {
                 value: -1.7,
-                duration: 2,
+                duration: 1.5,
                 onComplete: onAnimationCompleted,
             });
     })(node), [contextSafe, onAnimationCompleted]);

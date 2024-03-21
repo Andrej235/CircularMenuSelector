@@ -8,3 +8,11 @@ img.picsum {
     max-height: 100%;
     aspect-ratio: auto;
 }
+
+#item-display {
+    width: 100svw;
+    height: 100svh;
+
+    overflow: hidden;
+    background-color: #000;
+}

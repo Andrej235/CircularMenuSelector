@@ -1,11 +1,12 @@
 import { ReactThreeFiber } from "@react-three/fiber";
-import { ShaderMaterial } from "three";
+import { Color, ShaderMaterial, Vector3 } from "three";
 
 export class FadeoutScreenMaterial extends ShaderMaterial {
     constructor() {
         super({
             uniforms: {
                 uTime: { value: 3.14 },
+                uColor: { value: new Color(0x181818) }
             },
             transparent: true,
             vertexShader: `
@@ -19,6 +20,7 @@ export class FadeoutScreenMaterial extends ShaderMaterial {
                 precision mediump float;
 
                 uniform float uTime;
+                uniform vec3 uColor;
                 varying vec2 vUv;
 
                 float Random(vec2 pixelCoords) {
@@ -62,8 +64,7 @@ export class FadeoutScreenMaterial extends ShaderMaterial {
                     sinT = sinT * .5 + .5;
 
                     float alpha = 1.0 - smoothstep(0., 1. * (1.0 - sinT), noise * sinT);
-                    vec3 color = vec3(0.0);
-                    gl_FragColor = vec4(color, alpha);
+                    gl_FragColor = vec4(uColor, alpha);
                 }
             `
         })

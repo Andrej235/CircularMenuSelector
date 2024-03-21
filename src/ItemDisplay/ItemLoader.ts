@@ -1,11 +1,11 @@
 import { ActionFunctionArgs, ParamParseKey, Params, defer } from "react-router-dom";
 
-export const pathName = {
+export const path = {
     item: '/item/:itemId'
 } as const;
 
 export interface Args extends ActionFunctionArgs {
-    params: Params<ParamParseKey<typeof pathName.item>>;
+    params: Params<ParamParseKey<typeof path.item>>;
 }
 
 export interface ItemLoaderResult {
@@ -14,11 +14,11 @@ export interface ItemLoaderResult {
 
 export async function itemLoader({ params }: Args) {
     return defer({
-        imageBase64: (
-            fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080')
-            .then(x => x.blob())
-            .then(x => blobToBase64(x))
-        )
+        imageBase64:
+            fetch(`https://picsum.photos/id/${params.itemId}/1920/1080`)
+                .then(x => x.blob())
+                .then(x => blobToBase64(x))
+                .catch(ex => console.error(ex))
     });
 }
 

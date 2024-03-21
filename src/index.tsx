@@ -5,6 +5,7 @@ import Menu from './Menu/Menu';
 import ItemDisplay from './ItemDisplay/ItemDisplay';
 import Error from './Error/Error';
 import { itemLoader } from './ItemDisplay/ItemLoader';
+import { StrictMode } from 'react';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-  <RouterProvider router={router} />
-  // </React.StrictMode>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 );
