@@ -9,39 +9,47 @@ extend({ LoadingScreenMaterial })
 
 type LoadingScreenProps = {
     hidden: boolean,
+    onFinishShowAnimation?: () => void
+    onFinishHideAnimation?: () => void
 }
 
-export default function LoadingScreen({ hidden }: LoadingScreenProps) {
+export default function LoadingScreen({ hidden, onFinishShowAnimation, onFinishHideAnimation }: LoadingScreenProps) {
     return (
         <div id="loading-screen">
             <Canvas>
-                <LoadingScreenCanvasElements hidden={hidden} />
+                <LoadingScreenCanvasElements hidden={hidden} onFinishHideAnimation={onFinishHideAnimation} onFinishShowAnimation={onFinishShowAnimation} />
             </Canvas>
         </div>
     )
 }
 
-function LoadingScreenCanvasElements({ hidden }: LoadingScreenProps) {
+function LoadingScreenCanvasElements({ hidden, onFinishShowAnimation, onFinishHideAnimation }: LoadingScreenProps) {
     const { width, height } = useThree(state => state.viewport)
     const loadingScreenMaterialRef = useRef<LoadingScreenMaterial>(null);
 
     const { contextSafe } = useGSAP(() => { }, [loadingScreenMaterialRef]);
+    
     const show = contextSafe(() => {
         gsap.fromTo(loadingScreenMaterialRef.current!.uniforms.uTime,
             {
                 value: 3.14,
             },
             {
-                value: -1,
-                duration: 1,
+                value: 3.14,
+                duration: 0,
+                onComplete: onFinishShowAnimation,
             });
     })
 
     const hide = contextSafe(() => {
-        gsap.to(loadingScreenMaterialRef.current!.uniforms.uTime,
+        gsap.fromTo(loadingScreenMaterialRef.current!.uniforms.uTime,
+            {
+                value: -1,
+            },
             {
                 value: 3.14,
-                duration: 1,
+                duration: 0,
+                onComplete: onFinishHideAnimation
             }
         );
     })

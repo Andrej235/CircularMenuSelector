@@ -1,17 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
 import CircularMenu from "./CircularMenu/CircularMenu";
 import Cube from "./Cube/Cube";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
-export default function Menu({ onUnmount, onNavigate }: { onUnmount: () => void, onNavigate: () => void }) {
+export default function Menu() {
     gsap.registerPlugin(Observer);
-
-    useEffect(() => {
-        return onUnmount;
-    }, [onUnmount])
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -67,18 +65,15 @@ export default function Menu({ onUnmount, onNavigate }: { onUnmount: () => void,
         onLeft: decrementSelectedId,
     });
 
-    const onCubeClick = () => {
-        onNavigate();
-        navigate(`/item/${selectedItemId}`);
-    };
-
     return (
         <>
             <CircularMenu onItemSelected={setSelectedItemId} selectedItemId={selectedItemId} items={items} scale={menuScale} />
 
             <Canvas style={{ width: "33svw", height: "33svh", zIndex: 10 }} shadows ref={canvasRef}>
-                <Cube selectedItemId={selectedItemId} onClick={onCubeClick} />
+                <Cube selectedItemId={selectedItemId} onClick={() => setIsLoading(true)} />
             </Canvas>
+
+            <LoadingScreen hidden={!isLoading} onFinishShowAnimation={() => navigate(`/item/${selectedItemId}`)} />
         </>
     );
 }

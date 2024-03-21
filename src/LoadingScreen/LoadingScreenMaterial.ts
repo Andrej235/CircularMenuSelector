@@ -5,7 +5,7 @@ export class LoadingScreenMaterial extends ShaderMaterial {
     constructor() {
         super({
             uniforms: {
-                uTime: { value: 0 },
+                uTime: { value: 3.14 },
             },
             transparent: true,
             vertexShader: `

@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, ParamParseKey, Params } from "react-router-dom";
+import { ActionFunctionArgs, ParamParseKey, Params, defer } from "react-router-dom";
 
 export const pathName = {
     item: '/item/:itemId'
@@ -12,19 +12,27 @@ export interface ItemLoaderResult {
     imageBase64: string
 }
 
-export async function itemLoader({ params }: Args, onStartLoading?: () => void): Promise<ItemLoaderResult> {
+export async function itemLoader({ params }: Args, onStartLoading?: () => void) {
 
     console.log('loading item ' + params.itemId);
     onStartLoading?.();
 
-    const request = fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080');
-    const response = await request;
-    const blob = await response.blob();
-    const imageBase64 = await blobToBase64(blob);
+    /*     const request = fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080');
+        const response = await request;
+        const blob = await response.blob();
+        const imageBase64 = await blobToBase64(blob); */
 
-    return {
-        imageBase64: imageBase64
-    };
+    return defer({
+        imageBase64: (
+            fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080')
+            .then(x => x.blob())
+            .then(x => blobToBase64(x))
+        )
+    });
+
+    /*     return {
+            imageBase64: imageBase64
+        }; */
 }
 
 export function blobToBase64(blob: Blob): Promise<string> {
