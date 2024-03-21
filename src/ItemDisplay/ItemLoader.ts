@@ -12,16 +12,7 @@ export interface ItemLoaderResult {
     imageBase64: string
 }
 
-export async function itemLoader({ params }: Args, onStartLoading?: () => void) {
-
-    console.log('loading item ' + params.itemId);
-    onStartLoading?.();
-
-    /*     const request = fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080');
-        const response = await request;
-        const blob = await response.blob();
-        const imageBase64 = await blobToBase64(blob); */
-
+export async function itemLoader({ params }: Args) {
     return defer({
         imageBase64: (
             fetch('https://picsum.photos/id/' + params.itemId + '/1920/1080')
@@ -29,10 +20,6 @@ export async function itemLoader({ params }: Args, onStartLoading?: () => void) 
             .then(x => blobToBase64(x))
         )
     });
-
-    /*     return {
-            imageBase64: imageBase64
-        }; */
 }
 
 export function blobToBase64(blob: Blob): Promise<string> {

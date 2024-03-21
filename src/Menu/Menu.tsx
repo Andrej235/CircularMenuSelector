@@ -5,11 +5,11 @@ import { Observer } from "gsap/Observer";
 import CircularMenu from "./CircularMenu/CircularMenu";
 import Cube from "./Cube/Cube";
 import { useNavigate } from "react-router-dom";
-import LoadingScreen from "../LoadingScreen/LoadingScreen";
+import { FadeOutScreen } from "../FadeoutScreen/FadeoutScreen";
 
 export default function Menu() {
     gsap.registerPlugin(Observer);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isNavigating, setIsNavigating] = useState<boolean>(false);
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -70,10 +70,17 @@ export default function Menu() {
             <CircularMenu onItemSelected={setSelectedItemId} selectedItemId={selectedItemId} items={items} scale={menuScale} />
 
             <Canvas style={{ width: "33svw", height: "33svh", zIndex: 10 }} shadows ref={canvasRef}>
-                <Cube selectedItemId={selectedItemId} onClick={() => setIsLoading(true)} />
+                <Cube selectedItemId={selectedItemId} onClick={() => setIsNavigating(true)} />
             </Canvas>
 
-            <LoadingScreen hidden={!isLoading} onFinishShowAnimation={() => navigate(`/item/${selectedItemId}`)} />
+            {name()}
         </>
     );
+
+    function name() {
+        if (isNavigating)
+            return <FadeOutScreen onAnimationCompleted={() => navigate("/item/" + selectedItemId)} />
+        else
+            return null;
+    }
 }

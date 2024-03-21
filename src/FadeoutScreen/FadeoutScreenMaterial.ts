@@ -1,7 +1,7 @@
 import { ReactThreeFiber } from "@react-three/fiber";
 import { ShaderMaterial } from "three";
 
-export class LoadingScreenMaterial extends ShaderMaterial {
+export class FadeoutScreenMaterial extends ShaderMaterial {
     constructor() {
         super({
             uniforms: {
@@ -73,7 +73,7 @@ export class LoadingScreenMaterial extends ShaderMaterial {
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            loadingScreenMaterial: ReactThreeFiber.Object3DNode<LoadingScreenMaterial, typeof LoadingScreenMaterial>
+            fadeoutScreenMaterial: ReactThreeFiber.Object3DNode<FadeoutScreenMaterial, typeof FadeoutScreenMaterial>
         }
     }
 }
