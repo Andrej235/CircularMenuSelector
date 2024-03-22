@@ -42,7 +42,7 @@ float FBM(in vec2 seed) {
     return value;
 }
 
-void main(){
+void main() {
     vec2 pixelPos = gl_FragCoord.xy / u_resolution.xy;
 
     vec3 color = texture2D(u_tex0, pixelPos).rgb;
@@ -55,7 +55,7 @@ void main(){
     color *= gray * staticNoise + .3; //? Old / grainy effect
     color += dynamicNoise * .3; //? Glitchy effect
     color -= gray * blackStaticNoise * .7; //? Black hole-like effect
-    
+
     color -= (1. - step(.5, gray)) * .2; //? Dark highlights
     float lighHighlights = step(.85, gray);
     color += lighHighlights * .2 + (gray * blackStaticNoise * lighHighlights * .45); //? Light highlights
