@@ -1,9 +1,13 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
 
 uniform vec2 u_resolution;
+uniform vec2 u_mouse;
 uniform float u_time;
+uniform float u_mouseRevealRadius;
+uniform float u_mouseRevealRadiusSmoothFactor;
 uniform sampler2D u_tex0;
-varying vec2 v_uv;
 
 float Random(vec2 pixelCoords) {
     return fract(sin(dot(pixelCoords, vec2(534.645745, 54.1234))) * 1e4);
@@ -42,6 +46,22 @@ float FBM(in vec2 seed) {
     return value;
 }
 
+vec2 coord(in vec2 p) {
+    p = p / u_resolution.xy;
+    // correct aspect ratio
+    if (u_resolution.x > u_resolution.y) {
+        p.x *= u_resolution.x / u_resolution.y;
+        p.x += (u_resolution.y - u_resolution.x) / u_resolution.y / 2.0;
+    } else {
+        p.y *= u_resolution.y / u_resolution.x;
+        p.y += (u_resolution.x - u_resolution.y) / u_resolution.x / 2.0;
+    }
+    // centering
+    p -= 0.5;
+    p *= vec2(-1.0, 1.0);
+    return p;
+}
+
 void main() {
     vec2 pixelPos = gl_FragCoord.xy / u_resolution.xy;
 
@@ -51,15 +71,16 @@ void main() {
     float blackStaticNoise = step(.65, FBM(pixelPos - .523778));
 
     float gray = dot(color, vec3(.299, .587, .114));
-    color = vec3(gray); //? Grayscale
-    color *= gray * staticNoise + .3; //? Old / grainy effect
-    color += dynamicNoise * .3; //? Glitchy effect
-    color -= gray * blackStaticNoise * .7; //? Black hole-like effect
+    vec3 grayScale = vec3(gray); //? Grayscale
+    grayScale *= gray * staticNoise + .3; //? Old / grainy effect
+    grayScale += dynamicNoise * .3; //? Glitchy effect
+    grayScale -= gray * blackStaticNoise * .7; //? Black hole-like effect
 
-    color -= (1. - step(.5, gray)) * .2; //? Dark highlights
+    grayScale -= (1. - step(.5, gray)) * .2; //? Dark highlights
     float lighHighlights = step(.85, gray);
-    color += lighHighlights * .2 + (gray * blackStaticNoise * lighHighlights * .45); //? Light highlights
+    grayScale += lighHighlights * .2 + (gray * blackStaticNoise * lighHighlights * .45); //? Light highlights
 
+    color = mix(color, grayScale, smoothstep(u_mouseRevealRadius, u_mouseRevealRadius * u_mouseRevealRadiusSmoothFactor, distance(coord(gl_FragCoord.xy), coord(u_mouse))));
     color = clamp(color, 0.0, 1.0);
 
     gl_FragColor = vec4(color, 1.0);

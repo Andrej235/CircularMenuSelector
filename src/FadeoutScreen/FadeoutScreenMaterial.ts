@@ -1,5 +1,5 @@
 import { ReactThreeFiber } from "@react-three/fiber";
-import { Color, ShaderMaterial, Vector3 } from "three";
+import { Color, ShaderMaterial } from "three";
 
 export class FadeoutScreenMaterial extends ShaderMaterial {
     constructor() {
